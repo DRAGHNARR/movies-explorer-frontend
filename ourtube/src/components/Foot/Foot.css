@@ -1,0 +1,58 @@
+.foot {
+  display: flex;
+  flex-direction: column;
+  padding: 79px 70px 20px;
+  background-color: #FFFFFF;
+}
+
+.foot__title {
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: auto;
+  color: #A0A0A0;
+}
+
+.foot__divider {
+  display: flex;
+  background-color: #E8E8E8;
+  height: 1px;
+  margin-top: 20px;
+}
+
+.foot__box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.foot__copy {
+  display: flex;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: auto;
+  color: #000;
+}
+
+.foot__nav-list {
+  display: flex;
+  list-style: none;
+}
+
+.foot__nav-item {
+  display: flex;
+  margin-left: 20px;
+}
+
+.foot__nav-item:first-child {
+  margin-left: 0;
+}
+
+.foot__link {
+  display: flex;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: auto;
+  color: #000;
+}

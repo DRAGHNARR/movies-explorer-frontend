@@ -1,0 +1,32 @@
+.movie {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.movie__pic {
+  width: 270px;
+  height: 151px;
+}
+
+.movie__title {
+  margin-top: 14px;
+  font-weight: 500;
+  font-size: 13px;
+  color: #000;
+}
+
+.movie__divider {
+  display: flex;
+  background-color: #E8E8E8;
+  height: 1px;
+  margin-top: 29px;
+}
+
+.movie__duration {
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: auto;
+  color: #A0A0A0;
+}

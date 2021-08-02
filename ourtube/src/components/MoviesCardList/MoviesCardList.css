@@ -1,0 +1,27 @@
+.movies {
+  display: flex;
+  flex-direction: column;
+  padding: 70px 70px 10px;
+}
+
+.movies__holder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 270px);
+  justify-content: center;
+  grid-column-gap: 10px;
+  grid-row-gap: 38px;
+}
+
+.movies__more {
+  padding: 50px 0 80px 0;
+}
+
+.movies__more-add {
+  border: none;
+  width: 100%;
+  background-color: #F9F9F9;
+  padding: 11px 0 9px 0;
+  font-weight: 500;
+  font-size: 12px;
+  color: #000;
+}

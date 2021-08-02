@@ -1,0 +1,52 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px;
+}
+
+.head__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.head__nav-item {
+  display: flex;
+  margin-left: 20px;
+}
+
+.head__nav-item:first-child {
+  margin-left: 0;
+}
+
+.head__nav-link {
+  display: flex;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.head__nav-account {
+  margin-left: 50px;
+  padding: 8px 12px;
+  border: 1px solid #AAAAAA;
+  border-radius: 50px;
+}
+
+.head__nav-account-pic {
+  width: 12px;
+  height: 14px;
+}
+
+.head__nav-account-text {
+  margin: 0 0 0 7px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
