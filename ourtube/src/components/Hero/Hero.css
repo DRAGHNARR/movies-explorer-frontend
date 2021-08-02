@@ -64,7 +64,7 @@
 }
 
 .hero__title {
-  width: 100%;
+  max-width: 730px;
   display: flex;
   position: absolute;
   top: 50%;
