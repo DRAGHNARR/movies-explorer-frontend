@@ -1,7 +1,7 @@
 .profile {
   display: flex;
   flex-direction: column;
-  padding: 74px 0 70px 0;
+  padding: 74px 30px 70px;
 }
 
 .profile__title {
@@ -60,4 +60,31 @@
   font-weight: 400;
   font-size: 13px;
   color: #FF004D;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    padding-top: 236px;
+  }
+
+  .profile__title {
+    margin: 0 auto 96px;
+  }
+
+  .profile__eddit {
+    margin-top: 210px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+
+  .profile__eddit {
+    font-size: 12px;
+  }
+  
+  .profile__exit {
+    font-size: 12px;
+  }
 }

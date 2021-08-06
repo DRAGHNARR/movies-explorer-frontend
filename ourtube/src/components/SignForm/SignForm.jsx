@@ -1,16 +1,19 @@
 import './SignForm.css';
 import Logo from '../Logo/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function SignForm({context}) {
+  const location = useLocation();
+  console.log(location.pathname);
+
   return (
     <section className="sign">
       <Logo/>
       <h1 className="sign__title">{context.title}</h1>
       <form className="sign__form">
         <div className="sign__form-box">
-          <span className="sign__form-title sign__invisible">Имя</span>
-          <input className="sign__form-input sign__invisible" id="sign-name" name="name" type="text" placeholder=""></input>
+          <span className={location.pathname === "/signup" ? "sign__form-title" : "sign__disable"}>Имя</span>
+          <input className={location.pathname === "/signup" ? "sign__form-input" : "sign__disable"} id="sign-name" name="name" type="text" placeholder=""></input>
           <span className="sign__form-title">E-mail</span>
           <input className="sign__form-input" id="sign-email" name="email" type="text" placeholder=""></input>
           <span className="sign__form-title">Пароль</span>

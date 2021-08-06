@@ -1,18 +1,26 @@
 import './Search.css';
 import searchSubmit from '../../images/search__submit-pic.png';
+import React, { useState } from 'react';
 
 function Search() {
+  const [isSet, setIsSet] = useState(false);
+
   return (
     <section className="search">
       <form className="search__form" name="search">
-        <div className="search__box-text">
-          <input className="search__text" id="search-phrase" name="phrase" type="text" placeholder="Фильм"></input>
+        <div className="search__line">
+          <div className="search__box-text">
+            <input className="search__text" id="search-phrase" name="phrase" type="text" placeholder="Фильм"></input>
+          </div>
           <button className="search__submit" type="submit"><img className="search__submit-pic" src={searchSubmit} alt="Иконка поиска"/></button>
         </div>
         <div className="search__box-radio">
           <span className="search__radio-description">Короткометражки</span>
-          <input className="search__radio" id="search-shorts" name="shorts" type="radio"></input>
+          <div className={isSet ? "search__radio-set" : "search__radio-unset"} onClick={() => setIsSet(!isSet)}>
+            <div className={isSet ? "search__radio-set-round" : "search__radio-unset-round"}></div>
+          </div>
         </div>
+        <input className="search__radio" id="search-shorts" name="shorts" type="radio" value={isSet}></input>
       </form>
       <div className="search__divider"></div>
     </section>

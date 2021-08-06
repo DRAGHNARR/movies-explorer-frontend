@@ -24,7 +24,7 @@
   margin: 70px 0 0 0;
   padding: 0;
   list-style: none;
-  gap: 30px;
+  gap: 40px;
 }
 
 .about__cards-item {
@@ -67,7 +67,8 @@
 }
 
 .about__graph-item:first-child .about__graph-line {
-  background-color: #2BE080;
+  background-color: #000;
+  color: #fff;
 }
 
 .about__graph-item:last-child .about__graph-line {
@@ -79,7 +80,6 @@
   padding: 9px 0;
   font-weight: 400;
   font-size: 14px;
-  font-weight: 400;
   text-align: center;
   color: #000;
 }
@@ -99,6 +99,10 @@
     padding: 90px 50px;
   }
 
+  .about__cards-list {
+    gap: 30px;
+  }
+
   .about__card {
     gap: 22px;
   }
@@ -112,7 +116,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 700px) {
   .about {
     padding: 70px 18px;
   }
@@ -121,16 +125,32 @@
     font-size: 18px;
   }
 
+  .about__card {
+    gap: 16px;
+  }
+
+  .about__graph-list {
+    margin-top: 60px;
+  }
+
+  .about__graph-item:first-child {
+    flex: 1.54;
+  }
+  
+  .about__graph-item:last-child {
+    flex: 2.84;
+  }
+
+  .about__graph-title {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
   .about__cards-list {
     flex-direction: column;
     margin-top: 60px;
     gap: 56px;
   }
-
-  .about__card {
-    gap: 16px;
-  }
-
   .about__card-title {
     font-size: 18px;
   }
@@ -139,16 +159,7 @@
     font-size: 12px;
   }
 
-  .about__graph-list {
-    margin-top: 60px;
-  }
-
   .about__graph-line {
-    font-size: 11px;
-  }
-
-  .about__graph-title {
-    margin-top: 10px;
     font-size: 11px;
   }
 }

@@ -84,12 +84,21 @@
     line-height: 18px;
   }
 
+  .tech__stack-list {
+    margin-top: 83px;
+  }
+
+  .tech__stack-item {
+    width: 84px;
+    height: 57px;
+  }
+
   .tech__stack-title {
     font-size: 12px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 700px) {
   .tech {
     padding: 70px 18px;
   }
@@ -111,5 +120,10 @@
     width: 292px;
     font-size: 11px;
     line-height: 16px;
+  }
+
+  .tech__stack-list {
+    margin-top: 50px;
+    padding: 0 65px 0;
   }
 }

@@ -15,7 +15,9 @@ function Hero() {
         </ul>
       </div>
       <div className="hero__body">
-        <img className="hero__back" src={heroBack} alt="Фоновая картинка"/>
+        <div className="hero__frame">
+          <img className="hero__back" src={heroBack} alt="Фоновая картинка"/>
+        </div>
         <h1 className="hero__title">Учебный проект студента факультета Веб-разработки.</h1>
       </div>
       <div className="hero__foot">

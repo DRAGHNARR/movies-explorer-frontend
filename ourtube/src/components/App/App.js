@@ -28,6 +28,12 @@ function App() {
           <Student/>
           <Foot/>
         </Route>
+        <Route exact path="/comp-tests">
+          <Head context={head}/>
+          <Search/>
+          <MoviesCardList data={movies}/>
+          <Foot/>
+        </Route>
         <Route exact path="/movies">
           <Head context={head}/>
           <Search/>
@@ -41,6 +47,7 @@ function App() {
           <Foot/>
         </Route>
         <Route exact path="/profile">
+          <Head context={head}/>
           <Profile/>
         </Route>
         <Route exact path="/signin">

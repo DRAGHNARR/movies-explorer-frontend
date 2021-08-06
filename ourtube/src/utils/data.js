@@ -15,6 +15,10 @@ const signup = {
 }
 
 const head = {
+  main: {
+    title: 'Главная',
+    to: '/',
+  },
   movies: {
     title: 'Фильмы',
     to: '/movies',

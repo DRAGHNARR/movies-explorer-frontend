@@ -5,24 +5,31 @@
 
 .search__form {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  gap: 28px;
+}
+
+.search__line {
+  display: flex;
+  gap: 10px;
 }
 
 .search__box-text {
   display: flex;
-  flex: 5;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-right: 41px;
   border: 1px solid #AAAAAA;
   border-radius: 50px;
   padding: 7px;
 }
 
 .search__box-radio {
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  flex: 1;
+  gap: 12px;
 }
 
 .search__text {
@@ -42,14 +49,8 @@
   background-color: #FFF;
 }
 
-.search__submit-pic {
-  width: 34px;
-  height: 34px;
-}
-
 .search__radio-description {
   display: flex;
-  margin-right: 14px;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
@@ -61,4 +62,62 @@
   background-color: #E5E5E5;
   height: 1px;
   margin-top: 83px;
+}
+
+.search__radio {
+  position: absolute;
+  visibility: hidden;
+}
+
+.search__radio-set {
+  display: flex;
+  background-color: #2BE080;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+}
+
+.search__radio-set-round {
+  display: flex;
+  background-color: #fff;
+  margin: 6px 6px 6px auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.search__radio-unset {
+  display: flex;
+  background-color: #C4C4C4;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+}
+
+.search__radio-unset-round {
+  display: flex;
+  background-color: #F5F5F5;
+  margin: 6px 6px 6px auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .search {
+    padding: 60px 30px 10px;
+    background-color: #FFF;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .search {
+    padding: 60px 30px 10px;
+    background-color: #FFF;
+  }
+
+  .search {
+    padding: 80px 14px 10px;
+    background-color: #FFF;
+  }
 }
