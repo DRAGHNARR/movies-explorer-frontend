@@ -91,11 +91,16 @@
 }
 
 .hero__nav-foot-button {
-  color: #FFF;
+  color: #fff;
 }
 
 .hero__link_foot {
   font-size: 13px;
+  color: #fff;
+}
+
+.hero__link_foot:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 768px) {

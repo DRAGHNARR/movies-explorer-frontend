@@ -18,22 +18,16 @@
 .search__box-text {
   display: flex;
   width: 100%;
+  background-color: #F9F9F9;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #AAAAAA;
-  border-radius: 50px;
-  padding: 7px;
-}
-
-.search__box-radio {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  border: 1px solid #F9F9F9;
+  border-radius: 8px;
 }
 
 .search__text {
-  margin: 8px 0 8px 22px;
+  margin: 16px 0 16px 20px;
+  background-color: #F9F9F9;
   width: 100%;
   padding: 0;
   border: none;
@@ -41,6 +35,13 @@
   font-size: 14px;
   line-height: 18px;
   color: #A0A0A0;
+}
+
+.search__box-radio {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .search__submit {
@@ -97,7 +98,7 @@
 .search__radio-unset-round {
   display: flex;
   background-color: #F5F5F5;
-  margin: 6px 6px 6px auto;
+  margin: 6px auto 6px 6px;
   width: 8px;
   height: 8px;
   border-radius: 50%;

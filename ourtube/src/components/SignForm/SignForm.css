@@ -2,7 +2,7 @@
   padding: 70px 30px 30px;
   display: flex;
   flex-direction: column;
-  width: 396px;
+  max-width: 396px;
   margin: 0 auto;
 }
 
