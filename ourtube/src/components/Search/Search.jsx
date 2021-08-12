@@ -1,13 +1,18 @@
 import './Search.css';
+import React, { useState, useEffect } from 'react';
 import searchSubmit from '../../images/search__submit-pic.png';
-import React, { useState } from 'react';
 
-function Search() {
+function Search({onSubmit}) {
   const [isSet, setIsSet] = useState(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    onSubmit();
+  } 
 
   return (
     <section className="search">
-      <form className="search__form" name="search">
+      <form className="search__form" name="search" onSubmit={handleSubmit}>
         <div className="search__line">
           <div className="search__box-text">
             <input className="search__text" id="search-phrase" name="phrase" type="text" placeholder="Фильм"></input>

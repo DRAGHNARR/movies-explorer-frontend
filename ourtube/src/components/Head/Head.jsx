@@ -1,10 +1,10 @@
 import './Head.css';
-import { NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import accountPic from '../../images/head__nav-account-pic.png';
 
-function Head({context}) {
+function Head({context, onSubmit}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const overlayClasses = isOpen ? "head__overlay" : "head__disable"; 
