@@ -7,21 +7,73 @@ function SignForm({context, onSubmit}) {
   const location = useLocation();
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState({});
+  const [email, setEmail] = useState({});
+  const [password, setPassword] = useState({});
+  const [isError, setIsError] = useState(true);
+
+
+  function handleNameChange(event) {
+    let error = "";
+    if (event.target.value.length < 2 || event.target.value.length > 30) {
+      error = "Имя должно быть от 2 до 30 символов.";
+    }
+      
+    setName({
+      value: event.target.value,
+      error: error,
+    });
+
+    if ((error !== "" && location.pathname === "/signup") || email.error !== "" || password.error !== "") {
+      setIsError(true);
+    }
+    else {
+      setIsError(false);
+    }
+  }
 
   function handleEmailChange(event) {
-    setEmail(event.target.value);
+    let error = "";
+    const re = /\S+@\S+\.\S+/;
+    if (!re.test(event.target.value)) {
+      error = "Некорректное значение поля E-mail.";
+    }
+      
+    setEmail({
+      value: event.target.value,
+      error: error,
+    });
+
+    if ((name.error !== "" && location.pathname === "/signup") || error !== "" || password.error !== "") {
+      setIsError(true);
+    }
+    else {
+      setIsError(false);
+    }
   }
   
   function handlePasswordChange(event) {
-    setPassword(event.target.value); 
+    let error = "";
+    if (event.target.value.length < 8) {
+      error = "Длинна пароля должна быть больше 8 символов.";
+    }
+      
+    setPassword({
+      value: event.target.value,
+      error: error,
+    });
+
+    if ((name.error !== "" && location.pathname === "/signup") || email.error !== "" || error !== "") {
+      setIsError(true);
+    }
+    else {
+      setIsError(false);
+    }
   }
   
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmit(email, password);
-    history.push('/movies');
+    onSubmit({email: email.value, password: password.value, name: name.value});
   } 
 
   return (
@@ -31,14 +83,14 @@ function SignForm({context, onSubmit}) {
       <form className="sign__form" name="sign" onSubmit={handleSubmit}>
         <div className="sign__form-box">
           <span className={location.pathname === "/signup" ? "sign__form-title" : "sign__disable"}>Имя</span>
-          <input className={location.pathname === "/signup" ? "sign__form-input" : "sign__disable"} id="sign-name" name="name" type="text" placeholder=""></input>
-          <span className="sign__form-title">E-mail</span>
-          <input value={email} onChange={handleEmailChange} className="sign__form-input" id="sign-email" name="email" type="email" placeholder=""></input>
+          <input value={name.value} onChange={handleNameChange} className={location.pathname === "/signup" ? (name.error !== "" ? "sign__form-input sign__error" : "sign__form-input") : "sign__disable"} id="sign-name" name="name" type="text" placeholder=""></input>
+          <span className={"sign__form-title"}>E-mail</span>
+          <input value={email.value} onChange={handleEmailChange} className={email.error !== "" ? "sign__form-input sign__error" : "sign__form-input"} id="sign-email" name="email" type="email" placeholder=""></input>
           <span className="sign__form-title">Пароль</span>
-          <input value={password} onChange={handlePasswordChange} className="sign__form-input sign__error" id="sign-pass" name="pass" placeholder="" type="password"></input>
-          <span className="sign__form-title sign__error">Что-то пошло не так...</span>
+          <input value={password.value} onChange={handlePasswordChange} className={password.error !== "" ? "sign__form-input sign__error" : "sign__form-input"} id="sign-pass" name="pass" placeholder="" type="password"></input>
+          <span className="sign__form-title sign__error">{name.error || email.error || password.error}</span>
         </div>
-        <input className="sign__form-submit" type="submit" value={context.submit}/>
+        <input className={isError ? "sign__form-submit sign__form-submit_error" : "sign__form-submit"} type="submit" value={context.submit} disabled={isError ? "true" : ""}/>
       </form>
       <div className="sign__foot">
         <p className="sign__foot-description">{context.footDescription}</p>

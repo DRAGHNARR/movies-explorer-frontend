@@ -2,8 +2,10 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import React, { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
+import { savedContext } from '../../contexts/savedContext';
 
 function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
+  const saved = React.useContext(savedContext);
   const [startCardsCounter, setStartCardsCounter] = useState(12);
   const [addCardsCounter, setAddCardsCounter] = useState(3);
   
@@ -33,6 +35,10 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
     handleResize()
   });
 
+  useEffect(() => {
+    setDisplayedMovies(movies.slice(0, startCardsCounter));
+  }, [movies]);
+
   window.addEventListener('resize', handleResize);
 
   function handleAdd() {
@@ -44,10 +50,6 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
       setIsAddButtonNeeded(false);
     }
   } 
-  
-  useEffect(() => {
-    handleAdd()
-  }, [movies]);
   
   useEffect(() => {
   }, [displayedMovies, loadingStatus]);
@@ -69,7 +71,14 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
         <section className={movies.length !== 0 ? "movies" : "movies__disable"}>
           <div className="movies__holder">
             {
-              displayedMovies.map(movie => <MoviesCard key={movie.id} movie={movie} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie}/>)
+              displayedMovies.map(movie => {
+                if (saved.find((current) => {
+                  return current.movieId === movie.movieId;
+                })) {
+                  movie.isSaved = true;
+                }
+                return <MoviesCard key={movie.movieId} movie={movie} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie}/>
+              })
             }
           </div>
           <nav className="movies__more">

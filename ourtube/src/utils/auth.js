@@ -26,10 +26,7 @@ class Auth {
     return fetch(this.signinUrl, {
       method: 'POST',
       headers: {"Content-Type": "application/json" },
-      body: JSON.stringify({
-        "password": password,
-        "email": email 
-      })
+      body: JSON.stringify({email, password})
     })
     .then(this._checkResponse);
   }
@@ -38,6 +35,15 @@ class Auth {
     return fetch(this.signCheckUrl, {
       method: 'GET',
       headers: {"Content-Type": "application/json", "Authorization" : `Bearer ${jwt}`}
+    })
+    .then(this._checkResponse);
+  }
+
+  updateUser(jwt, oldEmail, email, name) {
+    return fetch(this.signCheckUrl, {
+      method: 'PATCH',
+      headers: {"Content-Type": "application/json", "Authorization" : `Bearer ${jwt}`},
+      body: JSON.stringify({oldEmail, email, name})
     })
     .then(this._checkResponse);
   }

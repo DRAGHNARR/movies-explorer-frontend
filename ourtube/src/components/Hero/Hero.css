@@ -27,7 +27,34 @@
   font-weight: 500;
 }
 
+.hero__nav-account {
+  margin-left: 30px;
+  padding: 8px 12px;
+  border: 1px solid #AAAAAA;
+  border-radius: 50px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.hero__nav-account-pic {
+  width: 12px;
+  height: 14px;
+}
+
+.hero__nav-account-text {
+  margin: 0 0 0 7px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
+
+.hero__nav-head-button__disable {
+  display: none;
+}
+
 .hero__link {
+  display: flex;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -106,6 +133,19 @@
 @media screen and (max-width: 768px) {
   .hero__head {
     padding: 16px 30px;
+  }
+
+  .hero__nav-account {
+    margin-left: 0;
+  }
+
+  .hero__nav-link {
+    font-size: 18px;
+  }
+
+  .hero__nav-account {
+    font-size: 14px;
+    line-height: 16px;
   }
 }
 

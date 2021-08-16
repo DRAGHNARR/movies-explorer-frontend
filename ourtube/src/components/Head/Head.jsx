@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import accountPic from '../../images/head__nav-account-pic.png';
 
-function Head({context, onSubmit}) {
+function Head({context}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const overlayClasses = isOpen ? "head__overlay" : "head__disable"; 
