@@ -1,0 +1,19 @@
+
+
+.divider {
+  display: flex;
+  background-color: #000;
+  height: 1px;
+}
+
+.divider__color_black {
+  background-color: #000;
+}
+
+.divider__color_gray1 {
+  background-color: #E5E5E5;
+}
+
+.divider__color_gray2 {
+  background-color: #E8E8E8;
+}

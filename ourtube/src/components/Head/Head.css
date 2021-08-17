@@ -1,0 +1,156 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px;
+}
+
+.head__overlay {
+  display: flex;
+}
+
+.head__nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.head__nav-item {
+  display: flex;
+}
+
+.head__nav-item_additional {
+  display: none;
+}
+
+.head__nav-link {
+  display: flex;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.head__nav-account {
+  margin-left: 30px;
+  padding: 8px 12px;
+  border: 1px solid #AAAAAA;
+  border-radius: 50px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.head__nav-account-pic {
+  width: 12px;
+  height: 14px;
+}
+
+.head__nav-account-text {
+  margin: 0 0 0 7px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
+
+.head__close {
+  display: none;
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background-image: url('../../images/head__close.png');
+  width: 22px;
+  height: 22px;
+  background-position: center;
+}
+
+.head__open {
+  display: none;
+  background-image: url('../../images/head__open.png');
+  width: 44px;
+  height: 44px;
+  background-position: center;
+}
+
+.head__disable {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .head__nav-item_additional {
+    display: flex;
+  }
+  
+  .head__overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    justify-content: flex-end;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .head__disable {
+    display: none;
+  }
+
+  .head__nav-box {
+    width: 67%;
+    flex-direction: column;
+    position: relative;
+    gap: 28px;
+    background-color: #fff;
+  }
+
+  .head__close {
+    display: flex;
+  }
+
+  .head__open {
+    display: flex;
+  }
+
+  .head__nav-list {
+    margin-top: 159px;
+    flex-direction: column;
+    gap: 28px;
+    height: calc(100% - 159px);
+  }
+
+  .head__nav-item:last-child {
+    margin: auto 0 90px;
+  }
+
+  .head__nav-account {
+    margin-left: 0;
+  }
+
+  .head__nav-link {
+    font-size: 18px;
+  }
+
+  .head__nav-account {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .head__nav-box {
+    width: 100%;
+    flex-direction: column;
+    position: relative;
+    gap: 28px;
+    background-color: #fff;
+  }
+  
+  .head {
+    padding: 18px 14px;
+  }
+}

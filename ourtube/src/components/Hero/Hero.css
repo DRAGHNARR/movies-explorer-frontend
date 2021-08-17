@@ -1,0 +1,147 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  background-color: #F3C1F8;
+}
+
+.hero__head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 70px;
+}
+
+.hero__nav-head {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: inherit;
+}
+
+.hero__nav-head-button {
+  display: flex;
+  font-weight: 500;
+}
+
+.hero__link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  text-decoration: none;
+}
+
+.hero__link_enrty {
+  background-color: #000;
+  color: #fff;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
+
+.hero__body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.hero__frame {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 82px;
+}
+
+.hero__back {
+  width: 320px;
+  height: 320px;
+}
+
+.hero__title {
+  margin: 184px auto 224px;
+  max-width: 730px;
+  left: 50%;
+  color: #000;
+  text-align: center;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.hero__foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__nav-foot {
+  display: flex;
+  list-style: none;
+  padding: 24px 0;
+  flex: 1;
+  gap: 40px;
+  justify-content: center;
+  background-color: #000;
+  margin: 0;
+  width: inherit;
+}
+
+.hero__nav-foot-button {
+  color: #fff;
+}
+
+.hero__link_foot {
+  font-size: 13px;
+  color: #fff;
+}
+
+.hero__link_foot:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .hero__head {
+    padding: 16px 30px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .hero__title {
+    max-width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+    letter-spacing: -0.04em;
+  }
+
+  .hero__frame {
+    top: 142px;
+  }
+
+  .hero__back {
+    width: 248px;
+    height: 248px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .hero__head {
+    padding: 18px 14px;
+  }
+
+  .hero__nav-head {
+    gap: 14px;
+  }
+
+  .hero__nav-foot {
+    padding: 25px 0;
+    gap: 24px;
+  }
+
+  .hero__link_foot {
+    font-size: 11px;
+  }
+}

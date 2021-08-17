@@ -1,0 +1,165 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 110px 70px;
+}
+
+.about__title {
+  margin: 0;
+  display: flex;
+  font-weight: 400;
+  font-size: 22px;
+  color: #000;
+}
+
+.about__divider {
+  background-image: url('../../images/about__line.png');
+  height: 1px;
+  margin-top: 23px;
+}
+
+.about__cards-list {
+  display: flex;
+  margin: 70px 0 0 0;
+  padding: 0;
+  list-style: none;
+  gap: 40px;
+}
+
+.about__cards-item {
+  margin: 0 auto;
+}
+
+.about__card {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin: 0;
+}
+
+.about__card-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.about__card-text {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about__graph-list {
+  display: flex;
+  margin-top: 110px;
+  list-style: none;
+  padding: 0;
+}
+
+.about__graph-item:first-child {
+  flex: 1;
+}
+
+.about__graph-item:last-child {
+  flex: 5;
+}
+
+.about__graph-item:first-child .about__graph-line {
+  background-color: #000;
+  color: #fff;
+}
+
+.about__graph-item:last-child .about__graph-line {
+  background-color: #F2F2F2;
+}
+
+.about__graph-line {
+  margin: 0;
+  padding: 9px 0;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #000;
+}
+
+.about__graph-title {
+  margin-top: 14px;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 90px 50px;
+  }
+
+  .about__cards-list {
+    gap: 30px;
+  }
+
+  .about__card {
+    gap: 22px;
+  }
+
+  .about__card-text {
+    font-size: 12px;
+  }
+
+  .about__graph-list {
+    margin-top: 63px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .about {
+    padding: 70px 18px;
+  }
+
+  .about__title {
+    font-size: 18px;
+  }
+
+  .about__card {
+    gap: 16px;
+  }
+
+  .about__graph-list {
+    margin-top: 60px;
+  }
+
+  .about__graph-item:first-child {
+    flex: 1.54;
+  }
+  
+  .about__graph-item:last-child {
+    flex: 2.84;
+  }
+
+  .about__graph-title {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .about__cards-list {
+    flex-direction: column;
+    margin-top: 60px;
+    gap: 56px;
+  }
+  .about__card-title {
+    font-size: 18px;
+  }
+
+  .about__card-text {
+    font-size: 12px;
+  }
+
+  .about__graph-line {
+    font-size: 11px;
+  }
+}
