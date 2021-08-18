@@ -11,10 +11,6 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
     setIsSaved(!isSaved);
   }
 
-  function handleOnCardClick() {
-
-  }
-
   return (
     <figure className="movie">
       <a className="movie__pic-frame" href={movie.trailerLink}><img className="movie__pic" src={movie.image} alt={movie.nameRU}/></a>

@@ -7,7 +7,7 @@ function Profile({onSubmit, onExit}) {
 
   const [name, setName] = useState({value: user.name, error: ""});
   const [email, setEmail] = useState({value: user.email, error: ""});
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(true);
   const [title, setTitle] = useState(`Привет, ${name.value}!`);
 
   function handleNameChange(event) {
@@ -21,7 +21,7 @@ function Profile({onSubmit, onExit}) {
       error: error,
     });
 
-    if (error !== "" || email.error !== "") {
+    if (error !== "" || email.error !== "" || (event.target.value === user.name && email.value === user.email)) {
       setIsError(true);
     }
     else {
@@ -41,7 +41,7 @@ function Profile({onSubmit, onExit}) {
       error: error,
     });
 
-    if (name.error !== "" || error !== "") {
+    if (name.error !== "" || error !== "" || (name.value === user.name && event.target.value === user.email)) {
       setIsError(true);
     }
     else {
