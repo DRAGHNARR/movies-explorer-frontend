@@ -16,7 +16,7 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
   }
 
   return (
-    <figure className="movie" to={movie.trailerLink}>
+    <figure className="movie">
       <a className="movie__pic-frame" href={movie.trailerLink}><img className="movie__pic" src={movie.image} alt={movie.nameRU}/></a>
       <div className="movie__description">
         <div className="movie__description-line">
