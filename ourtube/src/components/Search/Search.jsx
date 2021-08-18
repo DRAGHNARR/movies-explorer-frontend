@@ -15,6 +15,11 @@ function Search({onSubmit}) {
     onSubmit(searcb, isSet);
   } 
 
+  function handleButtonChange(event) {
+    setIsSet(!isSet);
+    onSubmit(searcb, !isSet);
+  }
+
   return (
     <section className="search">
       <form className="search__form" name="search" onSubmit={handleSubmit}>
@@ -26,7 +31,7 @@ function Search({onSubmit}) {
         </div>
         <div className="search__box-radio">
           <span className="search__radio-description">Короткометражки</span>
-          <div className={isSet ? "search__radio-set" : "search__radio-unset"} onClick={() => setIsSet(!isSet)}>
+          <div className={isSet ? "search__radio-set" : "search__radio-unset"} onClick={(event) => handleButtonChange(event)}>
             <div className={isSet ? "search__radio-set-round" : "search__radio-unset-round"}></div>
           </div>
         </div>

@@ -17,7 +17,7 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie}) {
           <figcaption className="movie__title">{movie.nameRU}</figcaption>
           <button className={isSaved ? "movie__saved" : "movie__unsaved"} onClick={handleSubmit}></button>
         </div>
-        <p className="movie__duration">{movie.duration}</p>
+        <p className="movie__duration">{(movie.duration >= 60 ? `${Math.floor(movie.duration / 60)}ч ` : "") + `${movie.duration % 60}м`}</p>
       </div>
     </figure>
   )

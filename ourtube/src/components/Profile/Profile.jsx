@@ -8,6 +8,7 @@ function Profile({onSubmit, onExit}) {
   const [name, setName] = useState({value: user.name, error: ""});
   const [email, setEmail] = useState({value: user.email, error: ""});
   const [isError, setIsError] = useState(false);
+  const [title, setTitle] = useState(`Привет, ${name.value}!`);
 
   function handleNameChange(event) {
     let error = "";
@@ -50,16 +51,26 @@ function Profile({onSubmit, onExit}) {
   
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmit(user.email, email.value, name.value);
+    console.log(user);
+    onSubmit(user.email, email.value, name.value)
+    .then(() => {
+      setTitle(`Изменения успешно сохранены, ${name.value}`);
+      console.log(123)
+    })
+    .catch(() => setTitle(`Что-то пошло не так.`));
   } 
 
   function handleExit(event) {
     onExit();
   }
 
+  useEffect(() => {
+    setTitle(`Привет, ${name.value}!`);
+  }, [name]);
+
   return (
     <section className="profile">
-      <h1 className="profile__title">Привет, {name.value}!</h1>
+      <h1 className="profile__title">{title}</h1>
       <form className="profile__form" onSubmit={handleSubmit}>
         <div className="profile__box">
           <span className="profile__form-title">Имя</span>

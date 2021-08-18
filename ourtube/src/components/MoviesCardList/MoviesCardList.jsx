@@ -3,14 +3,18 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import React, { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
 import { savedContext } from '../../contexts/savedContext';
+import { useLocation } from 'react-router-dom';
 
-function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
-  const saved = React.useContext(savedContext);
+function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSearched, setIsSearched}) {
+  const location = useLocation();
+  let saved = React.useContext(savedContext);
   const [startCardsCounter, setStartCardsCounter] = useState(12);
   const [addCardsCounter, setAddCardsCounter] = useState(3);
   
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [isAddButtonNeeded, setIsAddButtonNeeded] = useState(false);
+  const [loc, setLoc] = useState(location.pathname);
+
 
   function handleResize() {
     if (window.innerWidth <= 589) {
@@ -32,8 +36,17 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
   }
   
   useEffect(() => {
-    handleResize()
+    handleResize();
+    setLoc(location.pathname);
   });
+  
+  useEffect(() => {
+    return () => setIsSearched(false);
+  }, []);
+  
+  useEffect(() => {
+    setIsSearched(false);
+  }, [loc]);
 
   useEffect(() => {
     setDisplayedMovies(movies.slice(0, startCardsCounter));
@@ -63,6 +76,13 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie}) {
     return (
       <section className="movies">
         <h2 className="movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</h2>
+      </section>
+    )
+  }
+  else if (loadingStatus === "state" && isSearched && !movies.length) {
+    return (
+      <section className="movies">
+        <h2 className="movies__error">Ничего не найдено.</h2>
       </section>
     )
   }

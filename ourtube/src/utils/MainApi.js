@@ -20,11 +20,12 @@ class MoviesApi {
     .then(this._checkResponse);
   }
 
-  removeMovie(jwt, movie) {
+  removeMovie(jwt, movie, user) {
     return fetch(`${this.url}/${movie.movieId}`, {
       method: 'DELETE',
       headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`},
-      body: JSON.stringify(movie)
+      body: JSON.stringify(movie),
+      user: user,
     })
     .then(this._checkResponse);
   }

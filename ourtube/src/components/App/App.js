@@ -34,25 +34,32 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesFiltered, setSavedMoviesFiltered] = useState([]);
   const [loadingStatus, setLoadingStatus] = useState('state');
+  const [isSearched, setIsSearched] = useState(false);
   const [loggedIn, setLoggedIn] = useState(0);
   const history = useHistory();
 
   function onSearchSubmit(search, isShort) {
+    setIsSearched(true);
+    setLoadingStatus('loading');
     setMoviesFiltered(movies.filter((movie) => {
       return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
     }));
+    setLoadingStatus('state');
   };
 
   function onSearchSavedSubmit(search, isShort) {
+    setIsSearched(true);
+    setLoadingStatus('loading');
     setSavedMoviesFiltered(savedMovies.filter((movie) => {
       return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
     }));
+    setLoadingStatus('state');
   };
   
   function signCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      auth.signCheck(jwt)
+      return auth.signCheck(jwt)
         .then((answer) => {
           if (answer) {
             setUser(answer.data);
@@ -73,8 +80,8 @@ function App() {
       .then(answer => {
         if (answer.token) {
           localStorage.setItem('jwt', answer.token);
-          signCheck();
-          history.push('/movies');
+          signCheck()
+          .then(() => history.push('/movies'));
         }
       })
       .catch(error => console.log(error));
@@ -85,8 +92,8 @@ function App() {
       .then(answer => {
         if (answer.token) {
           localStorage.setItem('jwt', answer.token);
-          signCheck();
-          history.push('/movies');
+          signCheck()
+          .then(() => history.push('/movies'));
         }
       })
       .catch(error => console.log(error));
@@ -95,6 +102,7 @@ function App() {
   function onSaveMovie(movie) {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      setSavedMovies(savedMovies.concat(movie));  
       return mainApi.addMovie(jwt, movie)
         .then((movie) => {
           return movie;
@@ -108,7 +116,10 @@ function App() {
   function onUnsaveMovie(movie) {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-        mainApi.removeMovie(jwt, movie)
+        setSavedMovies(savedMovies.splice(savedMovies.find((current) => {
+          return current.movieId === movie.movieId;
+        }), 1));
+        mainApi.removeMovie(jwt, movie, user)
         .then((movie) => {
           return movie;
         })
@@ -118,72 +129,77 @@ function App() {
     }
   }
 
-  function onSignup({email, password, name}) {
-    return auth.signup(email, password, name)
-      .then(answer => {
-        if (answer.token) {
-          localStorage.setItem('jwt', answer.token);
-          signCheck();
-          history.push('/movies');
-        }
-      })
-      .catch(error => console.log(error));
-  }
-
   function onUpdateUser(oldEmail, email, name) {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-        auth.updateUser(jwt, oldEmail, email, name)
+        return auth.updateUser(jwt, oldEmail, email, name)
         .then((user) => {
-          setUser(user);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+          setUser(user.data);
+        });
     }
   }
 
   function onExit() {
+    setLoggedIn(2);
     localStorage.removeItem('jwt');
     history.push('/');
   }
   
-  useEffect(() => signCheck(), []);
+  useEffect(() => {
+    setIsSearched(false);
+    signCheck();
+  }, []);
   
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      mainApi.getMovies(jwt, user)
-      .then((movies) => {
-        setSavedMovies(movies.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      moviesApi.getMovies()
-      .then((movies) => {
-        setMovies(movies.map(movie => {
-          return {
-            id: movie.id,
-            country: movie.country,
-            director: movie.director,
-            duration: movie.duration,
-            year: movie.year,
-            description: movie.description,
-            image: `https://api.nomoreparties.co${movie.image.url}`,
-            trailerLink: movie.trailerLink,
-            thumbnail: movie.thumbnail ? movie.thumbnail : 'https://test.co/123',
-            nameRU: movie.nameRU,
-            nameEN: movie.nameEN,
-            movieId: movie.id,
-          };
-        }));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      console.log(JSON.parse(localStorage.getItem('savedMovies')).data);
+      console.log(JSON.parse(localStorage.getItem('movies')));
+      if (JSON.parse(localStorage.getItem('savedMovies'))) {
+        setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')).data);
+      }
+      else {
+        mainApi.getMovies(jwt, user)
+        .then((movies) => {
+          setSavedMovies(movies.data);
+          localStorage.setItem('savedMovies', JSON.stringify(movies));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+
+      if (JSON.parse(localStorage.getItem('movies'))) {
+        setMovies(JSON.parse(localStorage.getItem('movies')));
+      }
+      else {
+        moviesApi.getMovies()
+        .then((movies) => {
+          const test = movies.map(movie => {
+            return {
+              id: movie.id,
+              country: movie.country,
+              director: movie.director,
+              duration: movie.duration,
+              year: movie.year,
+              description: movie.description,
+              image: `https://api.nomoreparties.co${movie.image.url}`,
+              trailerLink: movie.trailerLink,
+              thumbnail: movie.thumbnail ? movie.thumbnail : 'https://test.co/123',
+              nameRU: movie.nameRU,
+              nameEN: movie.nameEN,
+              movieId: movie.id,
+            };
+          });
+          setMovies(test);
+          localStorage.setItem('movies', JSON.stringify(test));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
     }
-  }, [user]);
+  }, [loggedIn]);
 
   if (loggedIn === 0) {
     return (<Preloader/>);
@@ -204,13 +220,13 @@ function App() {
               <ProtectedRoute exact path="/movies" loggedIn={loggedIn}>
                 <Head context={head}/>
                 <Search onSubmit={onSearchSubmit}/>
-                <MoviesCardList movies={moviesFIltered} loadingStatus={loadingStatus} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie}/>
+                <MoviesCardList movies={moviesFIltered} loadingStatus={loadingStatus} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie} isSearched={isSearched} setIsSearched={setIsSearched}/>
                 <Foot/>
               </ProtectedRoute>
               <ProtectedRoute exact path="/saved-movies" loggedIn={loggedIn}>
                 <Head context={head}/>
                 <Search onSubmit={onSearchSavedSubmit}/>
-                <MoviesCardList movies={savedMoviesFiltered} loadingStatus={loadingStatus} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie}/>
+                <MoviesCardList movies={savedMoviesFiltered} loadingStatus={loadingStatus} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie} isSearched={isSearched} setIsSearched={setIsSearched}/>
                 <Foot/>
               </ProtectedRoute>
               <ProtectedRoute exact path="/profile" loggedIn={loggedIn}>
