@@ -71,14 +71,9 @@
 }
 
 .movie__saved-additional:hover {
-  display: flex;
-  box-sizing: border-box;
-  height: 16px;
-  width: 16px;
   background-image: url('../../images/movies__unsave.png');
-  border: 2px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
+  object-fit: cover;
+  background-position: center;
 }
 
 .movie__title {
