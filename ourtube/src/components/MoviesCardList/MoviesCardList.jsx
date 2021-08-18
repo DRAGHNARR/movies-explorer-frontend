@@ -15,7 +15,7 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSe
   const [isAddButtonNeeded, setIsAddButtonNeeded] = useState(false);
   const [loc, setLoc] = useState(location.pathname);
 
-
+console.log(loc);
   function handleResize() {
     if (window.innerWidth <= 589) {
       setStartCardsCounter(5);
@@ -92,12 +92,12 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSe
           <div className="movies__holder">
             {
               displayedMovies.map(movie => {
-                if (saved.find((current) => {
+                if (loc ==='/movies' && saved.find((current) => {
                   return current.movieId === movie.movieId;
                 })) {
                   movie.isSaved = true;
                 }
-                return <MoviesCard key={movie.movieId} movie={movie} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie}/>
+                return <MoviesCard key={movie.movieId} movie={movie} onSaveMovie={onSaveMovie} onUnsaveMovie={onUnsaveMovie} loc={loc}/>
               })
             }
           </div>
