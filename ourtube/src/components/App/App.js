@@ -153,8 +153,6 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      console.log(JSON.parse(localStorage.getItem('savedMovies')).data);
-      console.log(JSON.parse(localStorage.getItem('movies')));
       if (JSON.parse(localStorage.getItem('savedMovies'))) {
         setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')).data);
       }
