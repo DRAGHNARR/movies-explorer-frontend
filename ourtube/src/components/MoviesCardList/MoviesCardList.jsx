@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSearched, setIsSearched}) {
   const location = useLocation();
   let saved = React.useContext(savedContext);
+  console.log(saved);
   const [startCardsCounter, setStartCardsCounter] = useState(12);
   const [addCardsCounter, setAddCardsCounter] = useState(3);
   
@@ -66,6 +67,8 @@ console.log(loc);
   
   useEffect(() => {
   }, [displayedMovies, loadingStatus]);
+
+  console.log(loadingStatus);
 
   if (loadingStatus === "loading") {
     return (

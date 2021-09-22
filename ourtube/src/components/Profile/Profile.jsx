@@ -1,6 +1,7 @@
 import './Profile.css';
 import React, { useState, useEffect } from 'react';
 import { userContext } from '../../contexts/userContext';
+import ActionResult from '../ActionResult/ActionResult';
 
 function Profile({onSubmit, onExit}) {
   const user = React.useContext(userContext);
@@ -9,6 +10,7 @@ function Profile({onSubmit, onExit}) {
   const [email, setEmail] = useState({value: user.email, error: ""});
   const [isError, setIsError] = useState(true);
   const [title, setTitle] = useState(`Привет, ${name.value}!`);
+  const [popup, setPopup] = useState({enable: false, title: "", success: true});
 
   function handleNameChange(event) {
     let error = "";
@@ -51,13 +53,20 @@ function Profile({onSubmit, onExit}) {
   
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(user);
     onSubmit(user.email, email.value, name.value)
     .then(() => {
       setTitle(`Изменения успешно сохранены, ${name.value}`);
-      console.log(123)
+      setPopup({enable: true, title: `Успешный успех, ${name.value}!`, success: true});
     })
-    .catch(() => setTitle(`Что-то пошло не так.`));
+    .catch(() => {
+      setTitle(`Что-то пошло не так.`);
+      setPopup({enable: true, title: "Провальный провал.", success: false})
+    })
+    .finally(() => {
+      setTimeout(() => {
+        setPopup({enable: false, title: "", success: true})
+      }, 500);
+    })
   } 
 
   function handleExit(event) {
@@ -70,6 +79,7 @@ function Profile({onSubmit, onExit}) {
 
   return (
     <section className="profile">
+      <ActionResult enable={popup.enable} title={popup.title} success={popup.success}/>
       <h1 className="profile__title">{title}</h1>
       <form className="profile__form" onSubmit={handleSubmit}>
         <div className="profile__box">

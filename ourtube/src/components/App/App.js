@@ -39,21 +39,38 @@ function App() {
   const history = useHistory();
 
   function onSearchSubmit(search, isShort) {
-    setIsSearched(true);
-    setLoadingStatus('loading');
-    setMoviesFiltered(movies.filter((movie) => {
-      return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
-    }));
-    setLoadingStatus('state');
+    Promise.resolve(setLoadingStatus('loading'))
+      .then(() => {
+        setIsSearched(true);
+        setMoviesFiltered(movies.filter((movie) => {
+          return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
+        }));
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoadingStatus('state');
+        }, 1);
+      })
   };
 
   function onSearchSavedSubmit(search, isShort) {
-    setIsSearched(true);
-    setLoadingStatus('loading');
-    setSavedMoviesFiltered(savedMovies.filter((movie) => {
-      return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
-    }));
-    setLoadingStatus('state');
+    Promise.resolve(setLoadingStatus('loading'))
+      .then(() => {
+        setIsSearched(true);
+        if (savedMovies) {
+          setSavedMoviesFiltered(savedMovies.filter((movie) => {
+            return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
+          }));
+        }
+        else {
+          setSavedMoviesFiltered([]);
+        };
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoadingStatus('state');
+        }, 1);
+      });
   };
   
   function signCheck() {
@@ -101,8 +118,11 @@ function App() {
 
   function onSaveMovie(movie) {
     const jwt = localStorage.getItem('jwt');
+    console.log(1);
     if (jwt) {
-      setSavedMovies(savedMovies.concat(movie));  
+      const test = savedMovies.concat(movie);
+      setSavedMovies(test);  
+      localStorage.setItem('savedMovies', JSON.stringify(test));
       return mainApi.addMovie(jwt, movie)
         .then((movie) => {
           return movie;
@@ -116,9 +136,9 @@ function App() {
   function onUnsaveMovie(movie) {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-        setSavedMovies(savedMovies.splice(savedMovies.find((current) => {
-          return current.movieId === movie.movieId;
-        }), 1));
+        const test = savedMovies.filter(current => current.movieId !== movie.movieId);
+        localStorage.setItem('savedMovies', JSON.stringify(test));
+        setSavedMovies(test);
         mainApi.removeMovie(jwt, movie, user)
         .then((movie) => {
           return movie;
@@ -149,17 +169,22 @@ function App() {
     setIsSearched(false);
     signCheck();
   }, []);
+
+  console.log(loadingStatus);
   
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      if (JSON.parse(localStorage.getItem('savedMovies'))) {
-        setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')).data);
+      const savedMoviesJWT = JSON.parse(localStorage.getItem('savedMovies'));
+      const moviesJWT = JSON.parse(localStorage.getItem('movies'));
+      if (savedMoviesJWT && savedMoviesJWT.length > 0) {
+        console.log(savedMoviesJWT);
+        setSavedMovies(savedMoviesJWT);
       }
       else {
         mainApi.getMovies(jwt, user)
         .then((movies) => {
-          setSavedMovies(movies.data);
+          console.log(movies.data);
           localStorage.setItem('savedMovies', JSON.stringify(movies));
         })
         .catch((err) => {
@@ -167,7 +192,7 @@ function App() {
         });
       }
 
-      if (JSON.parse(localStorage.getItem('movies'))) {
+      if (moviesJWT && moviesJWT.length > 0) {
         setMovies(JSON.parse(localStorage.getItem('movies')));
       }
       else {
@@ -198,6 +223,8 @@ function App() {
       }
     }
   }, [loggedIn]);
+
+  console.log(savedMovies);
 
   if (loggedIn === 0) {
     return (<Preloader/>);

@@ -1,0 +1,30 @@
+.action-result {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0; 
+    right: 0; 
+    top: 0;
+    bottom: 0;
+    background-color: rgba(169, 169, 169, 0.3);
+}
+
+.action-result__disable {
+    display: none;
+}
+
+
+.action-result__frame {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.action-result__title {
+    font-weight: 500;
+    font-size: 24px;
+    color: #000;
+    text-align: center;
+}
