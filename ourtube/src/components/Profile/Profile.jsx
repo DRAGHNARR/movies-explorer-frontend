@@ -55,6 +55,7 @@ function Profile({onSubmit, onExit}) {
     event.preventDefault();
     onSubmit(user.email, email.value, name.value)
     .then(() => {
+      setIsError(true);
       setTitle(`Изменения успешно сохранены, ${name.value}`);
       setPopup({enable: true, title: `Успешный успех, ${name.value}!`, success: true});
     })
