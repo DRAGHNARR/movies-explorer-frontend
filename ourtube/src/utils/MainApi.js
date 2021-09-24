@@ -21,6 +21,7 @@ class MoviesApi {
   }
 
   removeMovie(jwt, movie, user) {
+    console.log(movie.movieId);
     return fetch(`${this.url}/${movie.movieId}`, {
       method: 'DELETE',
       headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`},

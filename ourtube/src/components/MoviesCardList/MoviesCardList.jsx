@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSearched, setIsSearched}) {
   const location = useLocation();
   let saved = React.useContext(savedContext);
-  console.log(saved);
   const [startCardsCounter, setStartCardsCounter] = useState(12);
   const [addCardsCounter, setAddCardsCounter] = useState(3);
   
@@ -16,7 +15,6 @@ function MoviesCardList({movies, loadingStatus, onSaveMovie, onUnsaveMovie, isSe
   const [isAddButtonNeeded, setIsAddButtonNeeded] = useState(false);
   const [loc, setLoc] = useState(location.pathname);
 
-console.log(loc);
   function handleResize() {
     if (window.innerWidth <= 589) {
       setStartCardsCounter(5);
@@ -68,8 +66,6 @@ console.log(loc);
   useEffect(() => {
   }, [displayedMovies, loadingStatus]);
 
-  console.log(loadingStatus);
-
   if (loadingStatus === "loading") {
     return (
       <Preloader/>
@@ -95,6 +91,7 @@ console.log(loc);
           <div className="movies__holder">
             {
               displayedMovies.map(movie => {
+                console.log(saved);
                 if (loc ==='/movies' && saved.find((current) => {
                   return current.movieId === movie.movieId;
                 })) {

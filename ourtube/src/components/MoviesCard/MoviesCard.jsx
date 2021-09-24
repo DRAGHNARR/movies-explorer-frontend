@@ -7,11 +7,10 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
 
   function handleSubmit(event) {
     event.stopPropagation();
+    console.log(isSaved);
     const result =  isSaved ? onUnsaveMovie(movie) : onSaveMovie(movie);
     setIsSaved(!isSaved);
   }
-
-  console.log(isSaved);
 
   return (
     <figure className="movie">

@@ -41,7 +41,7 @@ function Student() {
             <Divider color={'gray1'}/>
           </li>
           <li className="student__portfolio-item">
-            <a className="student__portfolio-link" href="#https://github.com/DRAGHNARR/react-mesto-api-full">
+            <a className="student__portfolio-link" href="https://github.com/DRAGHNARR/react-mesto-api-full">
               <h4 className="student__portfolio-link-title">Одностраничное приложение</h4>
               <p className="student__portfolio-link-mark">↗</p>
             </a>

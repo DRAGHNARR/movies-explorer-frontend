@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRouteSign from '../ProtectedRouteSign/ProtectedRouteSign';
 
 import Hero from '../Hero/Hero';
 import About from '../About/About';
@@ -42,9 +43,11 @@ function App() {
     Promise.resolve(setLoadingStatus('loading'))
       .then(() => {
         setIsSearched(true);
-        setMoviesFiltered(movies.filter((movie) => {
-          return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
-        }));
+        const test = movies.filter((movie) => {
+          return movie.nameRU.toLowerCase().indexOf(search.toLowerCase()) !== -1 && ((isShort && movie.duration < 40) || !isShort);
+        });
+        setMoviesFiltered(test);
+        localStorage.setItem('moviesFiltered', JSON.stringify(test));
       })
       .finally(() => {
         setTimeout(() => {
@@ -58,9 +61,12 @@ function App() {
       .then(() => {
         setIsSearched(true);
         if (savedMovies) {
-          setSavedMoviesFiltered(savedMovies.filter((movie) => {
-            return movie.nameRU.indexOf(search) !== -1 && ((isShort && movie.duration < 40) || !isShort);
-          }));
+          const test = savedMovies.filter((movie) => {
+            return movie.nameRU.toLowerCase().indexOf(search.toLowerCase()) !== -1 && ((isShort && movie.duration < 40) || !isShort);
+          });
+          setSavedMoviesFiltered(test);
+          console.log(test);
+          localStorage.setItem('savedMoviesFiltered', JSON.stringify(test));
         }
         else {
           setSavedMoviesFiltered([]);
@@ -162,6 +168,10 @@ function App() {
   function onExit() {
     setLoggedIn(2);
     localStorage.removeItem('jwt');
+    localStorage.removeItem('moviesFiltered');
+    localStorage.removeItem('savedMoviesFiltered');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('savedMovies');
     history.push('/');
   }
   
@@ -177,15 +187,34 @@ function App() {
     if (jwt) {
       const savedMoviesJWT = JSON.parse(localStorage.getItem('savedMovies'));
       const moviesJWT = JSON.parse(localStorage.getItem('movies'));
+      const moviesFilteredJWT = JSON.parse(localStorage.getItem('moviesFiltered'));
+      const savedMoviesFilteredJWT = JSON.parse(localStorage.getItem('savedMoviesFiltered'));
+
+      if (savedMoviesFilteredJWT && savedMoviesFilteredJWT.length > 0) {
+        setSavedMoviesFiltered(savedMoviesFilteredJWT);
+      }
+      else {
+        setSavedMoviesFiltered([]);
+      }
+
+      if (moviesFilteredJWT && moviesFilteredJWT.length > 0) {
+        setMoviesFiltered(moviesFilteredJWT);
+      }
+      else {
+        setMoviesFiltered([]);
+      }
+
       if (savedMoviesJWT && savedMoviesJWT.length > 0) {
-        console.log(savedMoviesJWT);
         setSavedMovies(savedMoviesJWT);
       }
       else {
         mainApi.getMovies(jwt, user)
         .then((movies) => {
-          console.log(movies.data);
           localStorage.setItem('savedMovies', JSON.stringify(movies));
+          setSavedMovies(movies.data.map((movie) => {
+            movie.isSaved = true;
+            return movie;
+          }));
         })
         .catch((err) => {
           console.log(err);
@@ -193,7 +222,7 @@ function App() {
       }
 
       if (moviesJWT && moviesJWT.length > 0) {
-        setMovies(JSON.parse(localStorage.getItem('movies')));
+        setMovies(moviesJWT);
       }
       else {
         moviesApi.getMovies()
@@ -258,12 +287,12 @@ function App() {
                 <Head context={head}/>
                 <Profile onSubmit={onUpdateUser} onExit={onExit}/>
               </ProtectedRoute>
-              <Route exact path="/signin">
+              <ProtectedRouteSign exact path="/signin">
                 <SignForm context={signin} onSubmit={onSignin}/>
-              </Route>
-              <Route exact path="/signup">
+              </ProtectedRouteSign>
+              <ProtectedRouteSign exact path="/signup">
                 <SignForm context={signup} onSubmit={onSignup}/>
-              </Route>
+              </ProtectedRouteSign>
               <Route>
                 <Except/>
               </Route>
