@@ -2,10 +2,11 @@ import React, { Children } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 const ProtectedRouteSign = ({ component: Component, ...props }) => {
+  console.log(props.loggedIn);
   return (
     <Route>
       {() =>
-        props.loggedIn === 2 ? props.children : <Redirect to="/" />
+        props.loggedIn === 1 ? <Redirect to="/"/> : props.children
       }
     </Route>
   );

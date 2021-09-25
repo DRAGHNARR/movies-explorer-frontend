@@ -180,7 +180,7 @@ function App() {
     signCheck();
   }, []);
 
-  console.log(loadingStatus);
+  console.log(loggedIn);
   
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -253,7 +253,7 @@ function App() {
     }
   }, [loggedIn]);
 
-  console.log(savedMovies);
+  console.log(loggedIn);
 
   if (loggedIn === 0) {
     return (<Preloader/>);
@@ -287,10 +287,10 @@ function App() {
                 <Head context={head}/>
                 <Profile onSubmit={onUpdateUser} onExit={onExit}/>
               </ProtectedRoute>
-              <ProtectedRouteSign exact path="/signin">
+              <ProtectedRouteSign exact path="/signin" loggedIn={loggedIn}>
                 <SignForm context={signin} onSubmit={onSignin}/>
               </ProtectedRouteSign>
-              <ProtectedRouteSign exact path="/signup">
+              <ProtectedRouteSign exact path="/signup" loggedIn={loggedIn}>
                 <SignForm context={signup} onSubmit={onSignup}/>
               </ProtectedRouteSign>
               <Route>
