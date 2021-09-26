@@ -179,8 +179,6 @@ function App() {
     setIsSearched(false);
     signCheck();
   }, []);
-
-  console.log(loggedIn);
   
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
