@@ -1,6 +1,5 @@
 import './MoviesCard.css';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
   const [isSaved, setIsSaved] = useState(movie.isSaved);
@@ -9,8 +8,11 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
     event.stopPropagation();
     console.log(isSaved);
     const result =  isSaved ? onUnsaveMovie(movie) : onSaveMovie(movie);
+    movie.isSaved = !movie.isSaved;
     setIsSaved(!isSaved);
   }
+
+  console.log(isSaved);
 
   return (
     <figure className="movie">
@@ -18,7 +20,7 @@ function MoviesCard({movie, onSaveMovie, onUnsaveMovie, loc}) {
       <div className="movie__description">
         <div className="movie__description-line">
           <figcaption className="movie__title">{movie.nameRU}</figcaption>
-          <button className={loc === '/movies' ? (isSaved ? "movie__saved" : "movie__unsaved") : "movie__saved-additional"} onClick={handleSubmit}></button>
+          <button className={loc === '/movies' ? (isSaved ? "movie__saved" : "movie__unsaved") : (isSaved ? "movie__saved-additional" : "movie__unsaved-additional")} onClick={handleSubmit}></button>
         </div>
         <p className="movie__duration">{(movie.duration >= 60 ? `${Math.floor(movie.duration / 60)}ч ` : "") + `${movie.duration % 60}м`}</p>
       </div>

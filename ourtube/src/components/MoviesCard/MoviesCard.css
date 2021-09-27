@@ -76,6 +76,21 @@
   background-position: center;
 }
 
+.movie__unsaved-additional {
+  display: flex;
+  box-sizing: border-box;
+  height: 16px;
+  width: 16px;
+  background-color: #F9F9F9;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, .05);
+}
+
+.movie__unsaved-additional:hover {
+  background-color: #2BE080;
+}
+
 .movie__title {
   font-weight: 500;
   font-size: 13px;
