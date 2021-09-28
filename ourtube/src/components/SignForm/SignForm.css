@@ -72,6 +72,10 @@
   color: #fff;
 }
 
+.sign__form-submit_error {
+  background-color: rgba(39, 37, 37, 0.479);
+}
+
 .sign__foot {
   margin-top: 16px;
   display: flex;

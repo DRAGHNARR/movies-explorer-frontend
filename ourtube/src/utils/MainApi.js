@@ -11,35 +11,36 @@ class MoviesApi {
     return Promise.reject(`Ошибка ${answer.status}`);
   }
 
-  addMovie(movie) {
+  addMovie(jwt, movie) {
     return fetch(this.url, {
       method: 'POST',
-      headers: {"Content-Type": "application/json" },
-      body: JSON.stringify({
-        movie,
-      })
+      headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`},
+      body: JSON.stringify(movie)
     })
     .then(this._checkResponse);
   }
 
-  removeMovie(movie) {
-    return fetch(this.url, {
+  removeMovie(jwt, movie, user) {
+    console.log(movie.movieId);
+    return fetch(`${this.url}/${movie.movieId}`, {
       method: 'DELETE',
-      headers: {"Content-Type": "application/json" },
-      body: JSON.stringify({
-        movie,
-      })
+      headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`},
+      body: JSON.stringify(movie),
+      user: user,
     })
     .then(this._checkResponse);
   }
 
-  getMovies() {
-    return fetch(this.url, {headers: this.head})
-      .then(this._checkAnswer);
+  getMovies(jwt, user) {
+    return fetch(this.url, {
+      headers: {"Content-Type": "application/json", "Authorization": `Bearer ${jwt}`},
+      user: user,
+    })
+    .then(this._checkAnswer);
   }
 }
 
-const mainApi = new MoviesApi({url: 'http://localhost:3001', head: {
+const mainApi = new MoviesApi({url: 'http://localhost:3001/movies', head: {
   'Content-Type': 'application/json'
 }});
 
